@@ -98,8 +98,13 @@ class TinyHUDView_Image_Text: TinyHUDView {
     }
 
     override func updateConstraints(hud: TinyHUD) {
+
+        if mainWindow == nil && hud.hostView == nil {
+            return
+        }
+
         var labelSize: CGSize!
-        let width = hud.hostView?.bounds.size.width ?? keyWindow.bounds.size.width
+        let width = hud.hostView?.bounds.size.width ?? mainWindow!.bounds.size.width
         if stackView.axis == .horizontal {
             let size = CGSize(width: width * hud.maxWidthRatio - hud.contentViewInsets.left - hud.contentViewInsets.right - stackView.spacing - imageView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
             labelSize = label.sizeThatFits(size)

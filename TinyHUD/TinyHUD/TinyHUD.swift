@@ -8,8 +8,7 @@
 import Foundation
 import SnapKit
 
-// swiftlint:disable force_cast
-let keyWindow = UIApplication.shared.windows.first!
+let mainWindow = UIApplication.shared.windows.first
 
 public class TinyHUDView: UIView {
     class func registered(hud: TinyHUD.Type) {}
@@ -194,6 +193,10 @@ extension TinyHUD {
 
     override func main() {
 
+        if mainWindow == nil && hostView == nil {
+            return
+        }
+
         DispatchQueue.main.async {
             self.maskView.setNeedsLayout()
             self.slotView.alpha = 0
@@ -201,7 +204,7 @@ extension TinyHUD {
             if let hostView = self.hostView {
                 hostView.addSubview(self.maskView)
             } else {
-                keyWindow.addSubview(self.maskView)
+                mainWindow?.addSubview(self.maskView)
             }
 
             self.maskView.snp.makeConstraints { make in
