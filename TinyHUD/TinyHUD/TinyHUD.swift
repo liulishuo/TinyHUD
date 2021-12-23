@@ -27,10 +27,9 @@ final class TinyHUD: Operation {
     let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dumbTap))
-        view.addGestureRecognizer(tap)
         return view
     }()
+
     var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
@@ -105,8 +104,6 @@ final class TinyHUD: Operation {
         backgroundView.backgroundColor = UIColor.clear
         backgroundView.isUserInteractionEnabled = true
     }
-
-    @objc func dumbTap() {}
 }
 
 // chain methods
@@ -245,7 +242,7 @@ extension TinyHUD {
                     make.center.equalToSuperview()
                 case .top:
                     make.centerX.equalToSuperview()
-                    make.top.equalToSuperview().offset(50)
+                    make.top.equalToSuperview().offset(100)
                 case .bottom:
                     make.centerX.equalToSuperview()
                     make.bottom.equalToSuperview().offset(-50)
@@ -266,36 +263,21 @@ extension TinyHUD {
 
             // 修复某些情况下的约束问题 或者 内容有变化需要更新约束
             self.contentView?.updateConstraints(hud: self)
-
-            UIView.animate(
-                withDuration: 0.5,
-                delay: self.delay,
-                options: .beginFromCurrentState,
-                animations: {
-                    self.containerView.alpha = 1
-                },
-                completion: { _ in
-
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay) {
+                self.containerView.alpha = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.duration) {
+                    self.finish()
                     UIView.animate(
-                        withDuration: self.duration,
+                        withDuration: 0.5,
                         animations: {
-                            self.containerView.alpha = 1.0001
+                            self.containerView.alpha = 0
                         },
                         completion: { _ in
-                            self.finish()
-                            UIView.animate(
-                                withDuration: 0.5,
-                                animations: {
-                                    self.containerView.alpha = 0
-                                },
-                                completion: { _ in
-                                    self.backgroundView.removeFromSuperview()
-                                }
-                            )
+                            self.backgroundView.removeFromSuperview()
                         }
                     )
                 }
-            )
+            }
         }
     }
 }
