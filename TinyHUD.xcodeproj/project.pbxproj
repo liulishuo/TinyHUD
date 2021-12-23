@@ -16,7 +16,7 @@
 		14B9237326CB426200EDC402 /* TinyHUDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9237226CB426200EDC402 /* TinyHUDTests.swift */; };
 		14B9237E26CB426200EDC402 /* TinyHUDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9237D26CB426200EDC402 /* TinyHUDUITests.swift */; };
 		14B9238F26CB429800EDC402 /* TinyHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9238E26CB429800EDC402 /* TinyHUD.swift */; };
-		14B9239126CB42CF00EDC402 /* TinyHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239026CB42CF00EDC402 /* TinyHUDContentView.swift */; };
+		14B9239126CB42CF00EDC402 /* CustomHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239026CB42CF00EDC402 /* CustomHUDView.swift */; };
 		14B9239326CB454700EDC402 /* TinyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239226CB454700EDC402 /* TinyJSON.swift */; };
 		14B9239726CB624D00EDC402 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B9239526CB624C00EDC402 /* Main.storyboard */; };
 		14B9239826CB624D00EDC402 /* TinyHUDDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239626CB624D00EDC402 /* TinyHUDDemo.swift */; };
@@ -57,7 +57,7 @@
 		14B9237D26CB426200EDC402 /* TinyHUDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyHUDUITests.swift; sourceTree = "<group>"; };
 		14B9237F26CB426200EDC402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14B9238E26CB429800EDC402 /* TinyHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyHUD.swift; sourceTree = "<group>"; };
-		14B9239026CB42CF00EDC402 /* TinyHUDContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyHUDContentView.swift; sourceTree = "<group>"; };
+		14B9239026CB42CF00EDC402 /* CustomHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHUDView.swift; sourceTree = "<group>"; };
 		14B9239226CB454700EDC402 /* TinyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyJSON.swift; sourceTree = "<group>"; };
 		14B9239526CB624C00EDC402 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		14B9239626CB624D00EDC402 /* TinyHUDDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyHUDDemo.swift; sourceTree = "<group>"; };
@@ -128,9 +128,9 @@
 		14B9235A26CB425F00EDC402 /* TinyHUD */ = {
 			isa = PBXGroup;
 			children = (
-				14B9238D26CB428000EDC402 /* ContentView */,
-				14B9239426CB454F00EDC402 /* Helper */,
 				14B9238B26CB426D00EDC402 /* TinyHUD */,
+				14B9238D26CB428000EDC402 /* CustomHUDView */,
+				14B9239426CB454F00EDC402 /* Helper */,
 				14B9235B26CB425F00EDC402 /* AppDelegate.swift */,
 				14B9235D26CB425F00EDC402 /* SceneDelegate.swift */,
 				14B9239626CB624D00EDC402 /* TinyHUDDemo.swift */,
@@ -168,15 +168,15 @@
 			path = TinyHUD;
 			sourceTree = "<group>";
 		};
-		14B9238D26CB428000EDC402 /* ContentView */ = {
+		14B9238D26CB428000EDC402 /* CustomHUDView */ = {
 			isa = PBXGroup;
 			children = (
 				14B9239B26CB826400EDC402 /* check.png */,
 				14B9239F26CB871700EDC402 /* wrong.png */,
 				14B9239D26CB869C00EDC402 /* information.png */,
-				14B9239026CB42CF00EDC402 /* TinyHUDContentView.swift */,
+				14B9239026CB42CF00EDC402 /* CustomHUDView.swift */,
 			);
-			path = ContentView;
+			path = CustomHUDView;
 			sourceTree = "<group>";
 		};
 		14B9239426CB454F00EDC402 /* Helper */ = {
@@ -453,7 +453,7 @@
 			files = (
 				14B9239826CB624D00EDC402 /* TinyHUDDemo.swift in Sources */,
 				14B9238F26CB429800EDC402 /* TinyHUD.swift in Sources */,
-				14B9239126CB42CF00EDC402 /* TinyHUDContentView.swift in Sources */,
+				14B9239126CB42CF00EDC402 /* CustomHUDView.swift in Sources */,
 				14B9239326CB454700EDC402 /* TinyJSON.swift in Sources */,
 				14B9235C26CB425F00EDC402 /* AppDelegate.swift in Sources */,
 				14B9235E26CB425F00EDC402 /* SceneDelegate.swift in Sources */,

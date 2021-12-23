@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        TinyHUD.register([TinyHUDContentView_Text.self, TinyHUDContentView_Image_Text.self])
+        TinyHUD.register([TinyHUDView_Text.self, TinyHUDView_Image_Text.self, TinyHUDView_Text_Tap.self])
         return true
     }
 

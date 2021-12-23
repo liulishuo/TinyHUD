@@ -1,5 +1,5 @@
 //
-//  TinyHUDContentView.swift
+//  TinyHUDView.swift
 //  TinyHUD
 //
 //  Created by liulishuo on 2021/8/4.
@@ -10,20 +10,22 @@
 import Foundation
 import SnapKit
 import CoreGraphics
+import UIKit
 
 extension TinyHUDKey {
     static let plainText = TinyHUDKey(rawValue: "plainText")
     static let success = TinyHUDKey(rawValue: "success")
     static let failure = TinyHUDKey(rawValue: "failure")
     static let info = TinyHUDKey(rawValue: "info")
+    static let demoTap = TinyHUDKey(rawValue: "demoTap")
 }
 
-class TinyHUDContentView_Text: TinyHUDContentView {
+class TinyHUDView_Text: TinyHUDView {
     let label = UILabel()
 
     override class func registered(hud: TinyHUD.Type) {
-        hud.register(TinyHUDKey.plainText.rawValue) { (context) -> TinyHUDContentView? in
-            let view = TinyHUDContentView_Text()
+        hud.register(TinyHUDKey.plainText.rawValue) { (context) -> TinyHUDView? in
+            let view = TinyHUDView_Text()
             view.label.numberOfLines = 0
             view.label.textColor = UIColor.white
             view.label.text = context?.stringValue
@@ -37,7 +39,7 @@ class TinyHUDContentView_Text: TinyHUDContentView {
     }
 }
 
-class TinyHUDContentView_Image_Text: TinyHUDContentView {
+class TinyHUDView_Image_Text: TinyHUDView {
 
     let imageView: UIImageView!
     let label: UILabel!
@@ -79,6 +81,7 @@ class TinyHUDContentView_Image_Text: TinyHUDContentView {
         self.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in
+
             make.edges.equalToSuperview()
         }
     }
@@ -124,19 +127,57 @@ class TinyHUDContentView_Image_Text: TinyHUDContentView {
     }
 
     override class func registered(hud: TinyHUD.Type) {
-        hud.register(TinyHUDKey.success.rawValue) { (context) -> TinyHUDContentView? in
-            let view = TinyHUDContentView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "check")!)
+        hud.register(TinyHUDKey.success.rawValue) { (context) -> TinyHUDView? in
+            let view = TinyHUDView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "check")!)
             return view
         }
 
-        hud.register(TinyHUDKey.failure.rawValue) { (context) -> TinyHUDContentView? in
-            let view = TinyHUDContentView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "wrong")!)
+        hud.register(TinyHUDKey.failure.rawValue) { (context) -> TinyHUDView? in
+            let view = TinyHUDView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "wrong")!)
             return view
         }
 
-        hud.register(TinyHUDKey.info.rawValue) { (context) -> TinyHUDContentView? in
-            let view = TinyHUDContentView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "information")!, axis: .horizontal)
+        hud.register(TinyHUDKey.info.rawValue) { (context) -> TinyHUDView? in
+            let view = TinyHUDView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "information")!, axis: .horizontal)
             return view
         }
+    }
+}
+
+class TinyHUDView_Text_Tap: TinyHUDView {
+    let stackView = UIStackView(frame: CGRect.zero)
+    let label = UILabel()
+    let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.forward"))
+
+    override class func registered(hud: TinyHUD.Type) {
+        hud.register(TinyHUDKey.demoTap.rawValue) { (context) -> TinyHUDView? in
+            let view = TinyHUDView_Text_Tap()
+
+            view.addSubview(view.stackView)
+
+            view.stackView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+
+            view.label.numberOfLines = 0
+            view.label.textColor = UIColor.white
+            view.label.text = context?.stringValue
+            view.stackView.addArrangedSubview(view.label)
+
+            view.arrowImageView.snp.makeConstraints { make in
+                make.size.equalTo(CGSize(width: 20, height: 20))
+            }
+            view.stackView.addArrangedSubview(view.arrowImageView)
+
+            let tap = UITapGestureRecognizer(target: view, action: #selector(customTap))
+            view.isUserInteractionEnabled = true
+            view.addGestureRecognizer(tap)
+            
+            return view
+        }
+    }
+
+    @objc func customTap() {
+        print("tap: \(self)")
     }
 }

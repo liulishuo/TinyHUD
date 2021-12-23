@@ -40,7 +40,7 @@ class TinyHUDDemo: UITableViewController {
 
         [
             "title": "Custom View",
-            "row": ["success", "failure", "info"]
+            "row": ["success", "failure", "info", "with tap gesture"]
         ]
     ]
     var navButton: UIBarButtonItem!
@@ -83,11 +83,16 @@ extension TinyHUDDemo {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+            cell?.textLabel?.numberOfLines = 0
         }
 
         cell?.textLabel?.text = data[indexPath.section]["row"][indexPath.row].stringValue
 
         return cell ?? UITableViewCell()
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -135,7 +140,11 @@ extension TinyHUDDemo {
             TinyHUD(.failure, "1234567890123456789012345678901234567890").maxWidthRatio(0.5).show()
         case (5, 2):
             TinyHUD(.info, "1234567890123456789012345678901234567890")
-//                .maxWidthRatio(0.5)
+                .maxWidthRatio(0.5)
+                .show()
+        case (5, 3):
+            TinyHUD(.demoTap, "with tap gesture")
+                .duration(10)
                 .show()
         default:
             break

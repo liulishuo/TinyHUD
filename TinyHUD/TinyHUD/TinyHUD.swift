@@ -11,47 +11,79 @@ import SnapKit
 // swiftlint:disable force_cast
 let keyWindow = UIApplication.shared.windows.first!
 
-public class TinyHUDContentView: UIView {
+public class TinyHUDView: UIView {
     class func registered(hud: TinyHUD.Type) {}
     func updateConstraints(hud: TinyHUD) {}
 }
-
-public typealias TinyHUDFactory = (_ context: JSON?) -> TinyHUDContentView?
 
 public struct TinyHUDKey {
     let rawValue: String
 }
 
+public typealias TinyHUDViewFactory = (_ context: JSON?) -> TinyHUDView?
+
+
+/*
+ View hierarchy:
+
+ hostView
+    ｜_ maskView (mask fill up the whole hostView)
+            |_ slotView (slot for TinyHUDView)
+                    |_ TinyHUDView (your custom view)
+ */
+
 final class TinyHUD: Operation {
 
-    let backgroundView: UIView = {
-        let view = UIView()
+    var hostView: UIView?
+
+    let maskView: MaskView = {
+        let view = MaskView()
         view.backgroundColor = UIColor.clear
         return view
     }()
 
-    var containerView: UIView = {
+    var slotView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
         return view
     }()
-    var contentView: TinyHUDContentView?
-    var hostView: UIView?
+
+    var hudView: TinyHUDView?
+
     var duration: TimeInterval = 1
+
     var delay: TimeInterval = 0
+
     var maskColor: UIColor?
+
     var position: Position = .mid
 
     var contentViewInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+
+    // ratio of hudView's maximum width to hostView's width
     var maxWidthRatio: CGFloat = 0.8
+
+    // hudView's width is fixed, a fixed ratio to hostView's width
     var fixedWidthRatio: CGFloat?
 
     private var _executing = false
     private var _finished = false
 
-    static private var hudFactories = [String: TinyHUDFactory]()
+    static private var hudFactories = [String: TinyHUDViewFactory]()
+
+    // register TinyHUDView
+    static func register(_ views: [TinyHUDView.Type]) {
+        views.forEach { view in
+            view.registered(hud: self)
+        }
+    }
+
+    // register the initialization function of TinyHUDView
+    static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
+        hudFactories[key] = factory
+    }
 
     static private let queue: OperationQueue = {
         let queue = OperationQueue()
@@ -65,22 +97,14 @@ final class TinyHUD: Operation {
 
     static var isQueueEnabled: Bool = true
 
-    static func register(_ views: [TinyHUDContentView.Type]) {
-        views.forEach { view in
-            view.registered(hud: self)
-        }
-    }
-
-    static func register(_ key: String, _ factory: @escaping TinyHUDFactory) {
-        hudFactories[key] = factory
-    }
 
     init(_ type: TinyHUDKey, _ content: TinyJSON?) {
 
         if let contentView = TinyHUD.hudFactories[type.rawValue]?(content) {
-            self.contentView = contentView
-            containerView.addSubview(contentView)
-            backgroundView.addSubview(containerView)
+            self.hudView = contentView
+            slotView.addSubview(contentView)
+            maskView.addSubview(slotView)
+            maskView.focusView = contentView
         }
 
         super.init()
@@ -101,72 +125,27 @@ final class TinyHUD: Operation {
         self.isExecuting = false
         self.isFinished = true
 
-        backgroundView.backgroundColor = UIColor.clear
-        backgroundView.isUserInteractionEnabled = true
-    }
-}
-
-// chain methods
-extension TinyHUD {
-    func onViewController(_ viewController: UIViewController) -> TinyHUD {
-        hostView = viewController.view
-        return self
+        maskView.backgroundColor = UIColor.clear
+        maskView.isUserInteractionEnabled = true
     }
 
-    func onView(_ view: UIView) -> TinyHUD {
-        hostView = view
-        return self
-    }
+    class MaskView: UIView {
+        var focusView: UIView?
 
-    func duration(_ duration: TimeInterval) -> TinyHUD {
-        self.duration = duration
-        return self
-    }
+        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+            if let focusView = focusView {
+                let point = focusView.convert(point, from: self)
+                if focusView.point(inside: point, with: event) {
+                    return focusView
+                }
+            }
 
-    func delay(_ delay: TimeInterval) -> TinyHUD {
-        self.delay = delay
-        TinyHUD.isQueueEnabled = false
-        return self
-    }
-
-    func mask(color: UIColor = UIColor.black.withAlphaComponent(0.2)) -> TinyHUD {
-        self.maskColor = color
-        return self
-    }
-
-    enum Position {
-        case top, mid, bottom
-        case custom(CGPoint)
-    }
-
-    func position(_ position: Position) -> TinyHUD {
-        self.position = position
-        return self
-    }
-
-    func containerViewColor(_ color: UIColor) -> TinyHUD {
-        self.containerView.backgroundColor = color
-        return self
-    }
-
-    func cornerRadius(_ radius: CGFloat) -> TinyHUD {
-        self.containerView.layer.cornerRadius = radius
-        return self
-    }
-
-    func insets(_ insets: UIEdgeInsets) -> TinyHUD {
-        contentViewInsets = insets
-        return self
-    }
-
-    func maxWidthRatio(_ ratio: CGFloat) -> TinyHUD {
-        self.maxWidthRatio = ratio
-        return self
-    }
-
-    func fixedWidthRatio(_ ratio: CGFloat) -> TinyHUD {
-        self.fixedWidthRatio = ratio
-        return self
+            if self.isUserInteractionEnabled {
+                return self
+            } else {
+                return super.hitTest(point, with: event)
+            }
+        }
     }
 }
 
@@ -210,33 +189,33 @@ extension TinyHUD {
     override func cancel() {
         super.cancel()
         self.finish()
-        self.backgroundView.removeFromSuperview()
+        self.maskView.removeFromSuperview()
     }
 
     override func main() {
 
         DispatchQueue.main.async {
-            self.backgroundView.setNeedsLayout()
-            self.containerView.alpha = 0
-
-            if let maskColor = self.maskColor {
-                self.backgroundView.backgroundColor = maskColor
-                self.backgroundView.isUserInteractionEnabled = true
-            } else {
-                self.backgroundView.isUserInteractionEnabled = false
-            }
+            self.maskView.setNeedsLayout()
+            self.slotView.alpha = 0
 
             if let hostView = self.hostView {
-                hostView.addSubview(self.backgroundView)
+                hostView.addSubview(self.maskView)
             } else {
-                keyWindow.addSubview(self.backgroundView)
+                keyWindow.addSubview(self.maskView)
             }
 
-            self.backgroundView.snp.makeConstraints { make in
+            self.maskView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }
 
-            self.containerView.snp.makeConstraints { make in
+            if let maskColor = self.maskColor {
+                self.maskView.backgroundColor = maskColor
+                self.maskView.isUserInteractionEnabled = true
+            } else {
+                self.maskView.isUserInteractionEnabled = false
+            }
+
+            self.slotView.snp.makeConstraints { make in
                 switch self.position {
                 case .mid:
                     make.center.equalToSuperview()
@@ -257,23 +236,23 @@ extension TinyHUD {
                 }
             }
 
-            self.contentView?.snp.makeConstraints { make in
+            self.hudView?.snp.makeConstraints { make in
                 make.edges.equalTo(self.contentViewInsets)
             }
 
-            // 修复某些情况下的约束问题 或者 内容有变化需要更新约束
-            self.contentView?.updateConstraints(hud: self)
+            self.hudView?.updateConstraints(hud: self)
+
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay) {
-                self.containerView.alpha = 1
+                self.slotView.alpha = 1
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.duration) {
                     self.finish()
                     UIView.animate(
                         withDuration: 0.5,
                         animations: {
-                            self.containerView.alpha = 0
+                            self.slotView.alpha = 0
                         },
                         completion: { _ in
-                            self.backgroundView.removeFromSuperview()
+                            self.maskView.removeFromSuperview()
                         }
                     )
                 }
@@ -281,3 +260,68 @@ extension TinyHUD {
         }
     }
 }
+
+//MARK: chain methods
+extension TinyHUD {
+    func onViewController(_ viewController: UIViewController) -> TinyHUD {
+        hostView = viewController.view
+        return self
+    }
+
+    func onView(_ view: UIView) -> TinyHUD {
+        hostView = view
+        return self
+    }
+
+    func duration(_ duration: TimeInterval) -> TinyHUD {
+        self.duration = duration
+        return self
+    }
+
+    func delay(_ delay: TimeInterval) -> TinyHUD {
+        self.delay = delay
+        return self
+    }
+
+    func mask(color: UIColor = UIColor.black.withAlphaComponent(0.2)) -> TinyHUD {
+        self.maskColor = color
+        return self
+    }
+
+    enum Position {
+        case top, mid, bottom
+        case custom(CGPoint)
+    }
+
+    func position(_ position: Position) -> TinyHUD {
+        self.position = position
+        return self
+    }
+
+    func containerViewColor(_ color: UIColor) -> TinyHUD {
+        self.slotView.backgroundColor = color
+        return self
+    }
+
+    func cornerRadius(_ radius: CGFloat) -> TinyHUD {
+        self.slotView.layer.cornerRadius = radius
+        return self
+    }
+
+    func insets(_ insets: UIEdgeInsets) -> TinyHUD {
+        contentViewInsets = insets
+        return self
+    }
+
+    func maxWidthRatio(_ ratio: CGFloat) -> TinyHUD {
+        self.maxWidthRatio = ratio
+        return self
+    }
+
+    func fixedWidthRatio(_ ratio: CGFloat) -> TinyHUD {
+        self.fixedWidthRatio = ratio
+        return self
+    }
+}
+
+
