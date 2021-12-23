@@ -128,6 +128,8 @@
 		14B9235A26CB425F00EDC402 /* TinyHUD */ = {
 			isa = PBXGroup;
 			children = (
+				14B9238D26CB428000EDC402 /* ContentView */,
+				14B9239426CB454F00EDC402 /* Helper */,
 				14B9238B26CB426D00EDC402 /* TinyHUD */,
 				14B9235B26CB425F00EDC402 /* AppDelegate.swift */,
 				14B9235D26CB425F00EDC402 /* SceneDelegate.swift */,
@@ -136,9 +138,6 @@
 				14B9236426CB426200EDC402 /* Assets.xcassets */,
 				14B9236626CB426200EDC402 /* LaunchScreen.storyboard */,
 				14B9236926CB426200EDC402 /* Info.plist */,
-				14B9239B26CB826400EDC402 /* check.png */,
-				14B9239F26CB871700EDC402 /* wrong.png */,
-				14B9239D26CB869C00EDC402 /* information.png */,
 			);
 			path = TinyHUD;
 			sourceTree = "<group>";
@@ -164,24 +163,17 @@
 		14B9238B26CB426D00EDC402 /* TinyHUD */ = {
 			isa = PBXGroup;
 			children = (
-				14B9239426CB454F00EDC402 /* Helper */,
-				14B9238C26CB427600EDC402 /* Core */,
-				14B9238D26CB428000EDC402 /* ContentView */,
-			);
-			path = TinyHUD;
-			sourceTree = "<group>";
-		};
-		14B9238C26CB427600EDC402 /* Core */ = {
-			isa = PBXGroup;
-			children = (
 				14B9238E26CB429800EDC402 /* TinyHUD.swift */,
 			);
-			path = Core;
+			path = TinyHUD;
 			sourceTree = "<group>";
 		};
 		14B9238D26CB428000EDC402 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
+				14B9239B26CB826400EDC402 /* check.png */,
+				14B9239F26CB871700EDC402 /* wrong.png */,
+				14B9239D26CB869C00EDC402 /* information.png */,
 				14B9239026CB42CF00EDC402 /* TinyHUDContentView.swift */,
 			);
 			path = ContentView;

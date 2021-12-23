@@ -7,13 +7,6 @@
 
 import Foundation
 
-/*
- 类型确定
-
- DEBUG模式下出错会崩溃方便尽早发现问题，其他模式下出错无感
-
- */
-
 public typealias JSON = TinyJSON
 
 public enum Number {
