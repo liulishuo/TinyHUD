@@ -1,0 +1,6 @@
+// {type:class}
+// {direction:leftToRight}
+
+[TinyHUD]-^[Operation]
+[TinyHUD]-.->[<<interface>>;TinyHUDView|registered;updateConstraints]
+[YourCustomView]-.-^[<<interface>>;TinyHUDView]

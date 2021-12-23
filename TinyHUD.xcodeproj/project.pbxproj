@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1489BFA62774BEC0000DD97A /* TinyHUD.yuml */ = {isa = PBXFileReference; lastKnownFileType = text; path = TinyHUD.yuml; sourceTree = "<group>"; };
 		14B9235826CB425F00EDC402 /* TinyHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B9235B26CB425F00EDC402 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14B9235D26CB425F00EDC402 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1489BFA72774BEE0000DD97A /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				14B9238D26CB428000EDC402 /* CustomHUDView */,
+				14B9239626CB624D00EDC402 /* TinyHUDDemo.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		14B9234F26CB425F00EDC402 = {
 			isa = PBXGroup;
 			children = (
@@ -129,11 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				14B9238B26CB426D00EDC402 /* TinyHUD */,
-				14B9238D26CB428000EDC402 /* CustomHUDView */,
-				14B9239426CB454F00EDC402 /* Helper */,
+				1489BFA72774BEE0000DD97A /* Demo */,
 				14B9235B26CB425F00EDC402 /* AppDelegate.swift */,
 				14B9235D26CB425F00EDC402 /* SceneDelegate.swift */,
-				14B9239626CB624D00EDC402 /* TinyHUDDemo.swift */,
 				14B9239526CB624C00EDC402 /* Main.storyboard */,
 				14B9236426CB426200EDC402 /* Assets.xcassets */,
 				14B9236626CB426200EDC402 /* LaunchScreen.storyboard */,
@@ -163,6 +171,8 @@
 		14B9238B26CB426D00EDC402 /* TinyHUD */ = {
 			isa = PBXGroup;
 			children = (
+				14B9239426CB454F00EDC402 /* Utility */,
+				1489BFA62774BEC0000DD97A /* TinyHUD.yuml */,
 				14B9238E26CB429800EDC402 /* TinyHUD.swift */,
 			);
 			path = TinyHUD;
@@ -179,12 +189,12 @@
 			path = CustomHUDView;
 			sourceTree = "<group>";
 		};
-		14B9239426CB454F00EDC402 /* Helper */ = {
+		14B9239426CB454F00EDC402 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				14B9239226CB454700EDC402 /* TinyJSON.swift */,
 			);
-			path = Helper;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		150266B3702B98F96E3F0503 /* Pods */ = {
