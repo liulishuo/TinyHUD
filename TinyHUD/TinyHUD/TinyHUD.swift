@@ -193,11 +193,13 @@ extension TinyHUD {
 
     override func main() {
 
-        if mainWindow == nil && hostView == nil {
-            return
-        }
+        self.isExecuting = true
 
         DispatchQueue.main.async {
+            if mainWindow == nil && self.hostView == nil {
+                return
+            }
+
             self.maskView.setNeedsLayout()
             self.slotView.alpha = 0
 
