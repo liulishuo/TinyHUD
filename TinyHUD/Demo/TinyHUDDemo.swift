@@ -118,7 +118,9 @@ extension TinyHUDDemo {
         case (2, 1):
             TinyHUD(.plainText, "mask color").mask(color: UIColor.red.withAlphaComponent(0.2)).show()
         case (3, 0):
-            TinyHUD(.plainText, "current View").onViewController(self).show()
+            if let cell = tableView.cellForRow(at: indexPath) {
+                TinyHUD(.plainText, "current View").onView(cell.contentView).duration(5).show()
+            }
 
             let viewController = UIViewController()
             viewController.view.backgroundColor = UIColor.white
