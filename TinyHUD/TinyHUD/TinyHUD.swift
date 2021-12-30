@@ -123,9 +123,6 @@ final class TinyHUD: Operation {
     private func finish() {
         self.isExecuting = false
         self.isFinished = true
-
-        maskView.backgroundColor = UIColor.clear
-        maskView.isUserInteractionEnabled = true
     }
 
     class MaskView: UIView {
@@ -175,7 +172,9 @@ extension TinyHUD {
 
     override func start() {
         let isRunnable = !self.isFinished && !self.isCancelled && !self.isExecuting
-        guard isRunnable else { return }
+        guard isRunnable else {
+            return
+        }
         guard Thread.isMainThread else {
             DispatchQueue.main.async { [weak self] in
                 self?.start()
@@ -192,7 +191,6 @@ extension TinyHUD {
     }
 
     override func main() {
-
         self.isExecuting = true
 
         DispatchQueue.main.async {
