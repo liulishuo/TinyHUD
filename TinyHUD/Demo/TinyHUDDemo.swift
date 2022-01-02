@@ -41,28 +41,15 @@ class TinyHUDDemo: UITableViewController {
         [
             "title": "Custom View",
             "row": ["success", "failure", "info", "with tap gesture"]
-        ]
+        ],
+        [
+            "title": "On non-main threads",
+            "row": ["solution 1", "solution 2"]
+        ],
     ]
-    var navButton: UIBarButtonItem!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let button = RespondingButton(type: .custom)
-        button.setTitle("Show Keyboard", for: .normal)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        button.addTarget(self, action: #selector(keyboardButtonTouchUpInside), for: .touchUpInside)
-        navButton = UIBarButtonItem(customView: button)
-
-        navigationItem.rightBarButtonItem = navButton
-    }
-
-    @objc dynamic func keyboardButtonTouchUpInside(sender: RespondingButton) {
-      if sender.isFirstResponder {
-        sender.resignFirstResponder()
-      } else {
-        sender.becomeFirstResponder()
-      }
     }
 }
 
@@ -97,7 +84,10 @@ extension TinyHUDDemo {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.showDemo(with: indexPath)
+    }
 
+    func showDemo(with indexPath:IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             TinyHUD(.plainText, "top").position(.top).show()
@@ -148,18 +138,19 @@ extension TinyHUDDemo {
             TinyHUD(.demoTap, "with tap gesture")
                 .duration(10)
                 .show()
+        case (6, 0):
+            DispatchQueue.global().async {
+                TinyHUD.onMain(.plainText, "solution 1") { $0.show() }
+            }
+        case (6, 1):
+            DispatchQueue.global().async {
+                DispatchQueue.main.async {
+                    TinyHUD(.plainText, "solution 2").show()
+                }
+            }
         default:
             break
         }
     }
 }
 
-class RespondingButton: UIButton, UIKeyInput {
-  override var canBecomeFirstResponder: Bool {
-    return true
-  }
-  var hasText: Bool = true
-  var autocorrectionType: UITextAutocorrectionType = .no
-  func insertText(_ text: String) {}
-  func deleteBackward() {}
-}

@@ -184,6 +184,6 @@ class TinyHUDView_Text_Tap: TinyHUDView {
 
     @objc func customTap() {
         print("tap: \(self)")
-        TinyHUD.currentHUD?.cancel()
+        TinyHUD.cancel()
     }
 }

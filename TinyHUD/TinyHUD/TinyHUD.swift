@@ -22,14 +22,12 @@ public struct TinyHUDKey {
 public typealias TinyHUDViewFactory = (_ context: JSON?) -> TinyHUDView?
 
 
-/*
- View hierarchy:
-
- hostView
-    ｜_ maskView (mask fill up the whole hostView)
-            |_ slotView (slot for TinyHUDView)
-                    |_ TinyHUDView (your custom view)
- */
+/// View hierarchy:
+///
+/// hostView
+///   ｜_ maskView (mask fill up the whole hostView)
+///           |_ slotView (slot for TinyHUDView)
+///                  |_ TinyHUDView (your custom view)
 
 final class TinyHUD: Operation {
 
@@ -41,6 +39,7 @@ final class TinyHUD: Operation {
         return view
     }()
 
+    /// Slot for your custom view
     var slotView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
@@ -61,10 +60,10 @@ final class TinyHUD: Operation {
 
     var contentViewInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 
-    // ratio of hudView's maximum width to hostView's width
+    /// Ratio of hudView's maximum width to hostView's width
     var maxWidthRatio: CGFloat = 0.8
 
-    // hudView's width is fixed, a fixed ratio to hostView's width
+    /// HudView's width is fixed, a fixed ratio to hostView's width
     var fixedWidthRatio: CGFloat?
 
     private var _executing = false
@@ -72,14 +71,14 @@ final class TinyHUD: Operation {
 
     static private var hudFactories = [String: TinyHUDViewFactory]()
 
-    // register TinyHUDView
+    /// Register TinyHUDView
     static func register(_ views: [TinyHUDView.Type]) {
         views.forEach { view in
             view.registered(hud: self)
         }
     }
 
-    // register the initialization function of TinyHUDView
+    /// Register the initialization function of TinyHUDView
     static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
         hudFactories[key] = factory
     }
@@ -97,6 +96,13 @@ final class TinyHUD: Operation {
     static var isQueueEnabled: Bool = true
 
 
+    /// Init
+    /// - Parameters:
+    ///   - type: the key for the HUD view you had already registed
+    ///   - content: the data for the HUD view
+    /// - Attention: If you're not sure which thread you're on, please use
+    /// static func onMain(_ type: TinyHUDKey, _ content: TinyJSON?, execute work: @escaping @convention(block) (TinyHUD) -> Void),
+    /// or wrap the lines of code that call the UI API in DispatchQueue.main.async {}
     init(_ type: TinyHUDKey, _ content: TinyJSON?) {
 
         if let contentView = TinyHUD.hudFactories[type.rawValue]?(content) {
@@ -109,11 +115,23 @@ final class TinyHUD: Operation {
         super.init()
     }
 
+    static func onMain(_ type: TinyHUDKey, _ content: TinyJSON?, execute work: @escaping @convention(block) (TinyHUD) -> Void) {
+        DispatchQueue.main.async {
+            let hud = TinyHUD(type, content)
+            work(hud)
+        }
+    }
+
     func show() {
         if !TinyHUD.isQueueEnabled {
             TinyHUD.cancelAll()
         }
+        
         TinyHUD.queue.addOperation(self)
+    }
+
+    static func cancel() {
+        currentHUD?.cancel()
     }
 
     static func cancelAll() {
@@ -145,7 +163,7 @@ final class TinyHUD: Operation {
     }
 }
 
-// override Operation
+// MARK: override Operation
 extension TinyHUD {
 
     override var isExecuting: Bool {
@@ -198,7 +216,6 @@ extension TinyHUD {
                 return
             }
 
-            self.maskView.setNeedsLayout()
             self.slotView.alpha = 0
 
             if let hostView = self.hostView {
@@ -264,7 +281,7 @@ extension TinyHUD {
     }
 }
 
-//MARK: chain methods
+// MARK: chain methods
 extension TinyHUD {
     func onViewController(_ viewController: UIViewController) -> TinyHUD {
         hostView = viewController.view
@@ -310,7 +327,7 @@ extension TinyHUD {
         self.slotView.layer.cornerRadius = radius
         return self
     }
-
+    
     func insets(_ insets: UIEdgeInsets) -> TinyHUD {
         contentViewInsets = insets
         return self
