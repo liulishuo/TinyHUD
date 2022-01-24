@@ -19,7 +19,7 @@ TinyHUD(.plainText, "Bottom").position(.bottom).show()
 TinyHUD(.plainText, "Custom").position(.custom(CGPoint(x: 100, y: 100))).show()
 ```
 
-<img src="/Screenshots/1.png" alt="1" style="zoom:50%;" />
+<img src="/Screenshots/1.png" alt="1" style="width:50%; height:50%" />
 
 ### Set Delay
 
@@ -34,7 +34,7 @@ TinyHUD(.plainText, "mask clear").mask(color: UIColor.clear).show()
 TinyHUD(.plainText, "mask color").mask(color: UIColor.red.withAlphaComponent(0.2)).show()
 ```
 
-<img src="/Screenshots/2.png" alt="2" style="zoom:50%;" />
+<img src="/Screenshots/2.png" alt="2" style="width:50%; height:50%" />
 
 ### Show on the specified view
 
@@ -52,7 +52,7 @@ MaxWidthRatio is the ratio of hudView's maximum width to hostView's width, defau
 TinyHUD(.plainText, "12345678901234567890").maxWidthRatio(0.2).show()
 ```
 
-<img src="/Screenshots/3.png" alt="3" style="zoom:50%;" />
+<img src="/Screenshots/3.png" alt="3" style="width:50%; height:50%" />
 
 ### Safe API
 
@@ -76,8 +76,8 @@ DispatchQueue.main.async {
 TinyHUD.register([TinyHUDView_Text.self, TinyHUDView_Image_Text.self, TinyHUDView_Text_Tap.self])
 ```
 
-<img src="/Screenshots/4.png" alt="4" style="zoom:25%;" /><img src="/Screenshots/5.png" alt="5" style="zoom:25%;" /><img src="/Screenshots/6.png" alt="6" style="zoom:25%;" />
+<img src="/Screenshots/4.png" alt="4" style="width:25%; height:25%" /><img src="/Screenshots/5.png" alt="5" style="width:25%; height:25%" /><img src="/Screenshots/6.png" alt="6" style="width:25%; height:25%" />
 
 ### UML
 
-<img src="/Screenshots/7.png" alt="7" style="zoom:50%;" />
+<img src="/Screenshots/7.png" alt="7" style="width:50%; height:50%" />
