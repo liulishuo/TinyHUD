@@ -116,7 +116,7 @@ extension TinyHUDDemo {
             viewController.view.backgroundColor = UIColor.white
             self.navigationController?.pushViewController(viewController, animated: true)
         case (3, 1):
-            TinyHUD(.plainText, "keyWindow").show()
+            TinyHUD(.plainText, "window").show()
             let viewController = UIViewController()
             viewController.view.backgroundColor = UIColor.white
             self.navigationController?.pushViewController(viewController, animated: true)

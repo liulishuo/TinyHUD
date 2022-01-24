@@ -11,8 +11,8 @@ import SnapKit
 let mainWindow = UIApplication.shared.windows.first
 
 public class TinyHUDView: UIView {
-    class func registered(hud: TinyHUD.Type) {}
-    func updateConstraints(hud: TinyHUD) {}
+    class func registered(by hud: TinyHUD.Type) {}
+    func updateConstraints(by hud: TinyHUD) {}
 }
 
 public struct TinyHUDKey {
@@ -72,14 +72,14 @@ final class TinyHUD: Operation {
     static private var hudFactories = [String: TinyHUDViewFactory]()
 
     /// Register TinyHUDView
-    static func register(_ views: [TinyHUDView.Type]) {
+    public static func register(_ views: [TinyHUDView.Type]) {
         views.forEach { view in
-            view.registered(hud: self)
+            view.registered(by: self)
         }
     }
 
     /// Register the initialization function of TinyHUDView
-    static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
+    public static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
         hudFactories[key] = factory
     }
 
@@ -260,7 +260,7 @@ extension TinyHUD {
                 make.edges.equalTo(self.contentViewInsets)
             }
 
-            self.hudView?.updateConstraints(hud: self)
+            self.hudView?.updateConstraints(by: self)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay) {
                 self.slotView.alpha = 1

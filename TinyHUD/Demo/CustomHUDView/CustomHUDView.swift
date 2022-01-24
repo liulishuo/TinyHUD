@@ -9,7 +9,6 @@
 
 import Foundation
 import SnapKit
-import CoreGraphics
 import UIKit
 
 extension TinyHUDKey {
@@ -23,7 +22,7 @@ extension TinyHUDKey {
 class TinyHUDView_Text: TinyHUDView {
     let label = UILabel()
 
-    override class func registered(hud: TinyHUD.Type) {
+    override class func registered(by hud: TinyHUD.Type) {
         hud.register(TinyHUDKey.plainText.rawValue) { (context) -> TinyHUDView? in
             let view = TinyHUDView_Text()
             view.label.numberOfLines = 0
@@ -97,7 +96,7 @@ class TinyHUDView_Image_Text: TinyHUDView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints(hud: TinyHUD) {
+    override func updateConstraints(by hud: TinyHUD) {
 
         if mainWindow == nil && hud.hostView == nil {
             return
@@ -131,7 +130,7 @@ class TinyHUDView_Image_Text: TinyHUDView {
         }
     }
 
-    override class func registered(hud: TinyHUD.Type) {
+    override class func registered(by hud: TinyHUD.Type) {
         hud.register(TinyHUDKey.success.rawValue) { (context) -> TinyHUDView? in
             let view = TinyHUDView_Image_Text(text: context?.stringValue ?? "", image: UIImage(named: "check")!)
             return view
@@ -154,7 +153,7 @@ class TinyHUDView_Text_Tap: TinyHUDView {
     let label = UILabel()
     let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.forward"))
 
-    override class func registered(hud: TinyHUD.Type) {
+    override class func registered(by hud: TinyHUD.Type) {
         hud.register(TinyHUDKey.demoTap.rawValue) { (context) -> TinyHUDView? in
             let view = TinyHUDView_Text_Tap()
 
