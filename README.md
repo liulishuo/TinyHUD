@@ -19,7 +19,7 @@ TinyHUD(.plainText, "Bottom").position(.bottom).show()
 TinyHUD(.plainText, "Custom").position(.custom(CGPoint(x: 100, y: 100))).show()
 ```
 
-<img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.49.26.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.49.26" style="zoom:50%;" />
+<img src="/Screenshots/1.png" alt="1" style="zoom:50%;" />
 
 ### Set Delay
 
@@ -34,7 +34,7 @@ TinyHUD(.plainText, "mask clear").mask(color: UIColor.clear).show()
 TinyHUD(.plainText, "mask color").mask(color: UIColor.red.withAlphaComponent(0.2)).show()
 ```
 
-<img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.02.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.02" style="zoom:50%;" />
+<img src="/Screenshots/2.png" alt="2" style="zoom:50%;" />
 
 ### Show on the specified view
 
@@ -52,7 +52,7 @@ MaxWidthRatio is the ratio of hudView's maximum width to hostView's width, defau
 TinyHUD(.plainText, "12345678901234567890").maxWidthRatio(0.2).show()
 ```
 
-<img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.43.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.43" style="zoom:50%;" />
+<img src="/Screenshots/3.png" alt="3" style="zoom:50%;" />
 
 ### Safe API
 
@@ -76,12 +76,8 @@ DispatchQueue.main.async {
 TinyHUD.register([TinyHUDView_Text.self, TinyHUDView_Image_Text.self, TinyHUDView_Text_Tap.self])
 ```
 
-<img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.54.03.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.54.03" style="zoom:25%;" /><img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.58.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.53.58" style="zoom:25%;" /><img src="/Users/liulishuo/Desktop/Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.54.00.png" alt="Simulator Screen Shot - iPod touch (7th generation) - 2022-01-24 at 09.54.00" style="zoom:25%;" />
-
-
+<img src="/Screenshots/4.png" alt="4" style="zoom:25%;" /><img src="/Screenshots/5.png" alt="5" style="zoom:25%;" /><img src="/Screenshots/6.png" alt="6" style="zoom:25%;" />
 
 ### UML
 
-
-
-<img src="/Users/liulishuo/Library/Application Support/typora-user-images/截屏2022-01-24 15.36.08.png" alt="截屏2022-01-24 15.36.08" style="zoom:50%;" />
+<img src="/Screenshots/7.png" alt="7" style="zoom:50%;" />
