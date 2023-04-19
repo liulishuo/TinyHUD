@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SnapKit
+import UIKit
 
 let mainWindow = UIApplication.shared.windows.first
 
@@ -21,11 +21,10 @@ public struct TinyHUDKey {
 
 public typealias TinyHUDViewFactory = (_ context: JSON?) -> TinyHUDView?
 
-
 /// View hierarchy:
 ///
 /// hostView
-///   ｜_ maskView (mask fill up the whole hostView)
+///   ｜_ maskView (mask fill up the whole hostView) [optional]
 ///           |_ slotView (slot for TinyHUDView)
 ///                  |_ TinyHUDView (your custom view)
 
@@ -33,8 +32,8 @@ final class TinyHUD: Operation {
 
     var hostView: UIView?
 
-    let maskView: MaskView = {
-        let view = MaskView()
+    let maskView: UIView = {
+        let view = UIView()
         view.backgroundColor = UIColor.clear
         return view
     }()
@@ -72,14 +71,14 @@ final class TinyHUD: Operation {
     static private var hudFactories = [String: TinyHUDViewFactory]()
 
     /// Register TinyHUDView
-    public static func register(_ views: [TinyHUDView.Type]) {
+    static func register(_ views: [TinyHUDView.Type]) {
         views.forEach { view in
             view.registered(by: self)
         }
     }
 
     /// Register the initialization function of TinyHUDView
-    public static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
+    static func register(_ key: String, _ factory: @escaping TinyHUDViewFactory) {
         hudFactories[key] = factory
     }
 
@@ -95,7 +94,6 @@ final class TinyHUD: Operation {
 
     static var isQueueEnabled: Bool = true
 
-
     /// Init
     /// - Parameters:
     ///   - type: the key for the HUD view you had already registed
@@ -108,8 +106,7 @@ final class TinyHUD: Operation {
         if let contentView = TinyHUD.hudFactories[type.rawValue]?(content) {
             self.hudView = contentView
             slotView.addSubview(contentView)
-            maskView.addSubview(slotView)
-            maskView.focusView = contentView
+//            maskView.addSubview(slotView)
         }
 
         super.init()
@@ -126,7 +123,7 @@ final class TinyHUD: Operation {
         if !TinyHUD.isQueueEnabled {
             TinyHUD.cancelAll()
         }
-        
+
         TinyHUD.queue.addOperation(self)
     }
 
@@ -141,25 +138,6 @@ final class TinyHUD: Operation {
     private func finish() {
         self.isExecuting = false
         self.isFinished = true
-    }
-
-    class MaskView: UIView {
-        var focusView: UIView?
-
-        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-            if let focusView = focusView {
-                let point = focusView.convert(point, from: self)
-                if focusView.point(inside: point, with: event) {
-                    return focusView
-                }
-            }
-
-            if self.isUserInteractionEnabled {
-                return self
-            } else {
-                return super.hitTest(point, with: event)
-            }
-        }
     }
 }
 
@@ -205,7 +183,11 @@ extension TinyHUD {
     override func cancel() {
         super.cancel()
         self.finish()
-        self.maskView.removeFromSuperview()
+        if self.maskView.superview != nil {
+            self.maskView.removeFromSuperview()
+        } else {
+            self.slotView.removeFromSuperview()
+        }
     }
 
     override func main() {
@@ -219,46 +201,104 @@ extension TinyHUD {
             self.slotView.alpha = 0
 
             if let hostView = self.hostView {
-                hostView.addSubview(self.maskView)
-            } else {
-                mainWindow?.addSubview(self.maskView)
-            }
-
-            self.maskView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
-
-            if let maskColor = self.maskColor {
-                self.maskView.backgroundColor = maskColor
-                self.maskView.isUserInteractionEnabled = true
-            } else {
-                self.maskView.isUserInteractionEnabled = false
-            }
-
-            self.slotView.snp.makeConstraints { make in
-                switch self.position {
-                case .mid:
-                    make.center.equalToSuperview()
-                case .top:
-                    make.centerX.equalToSuperview()
-                    make.top.equalToSuperview().offset(100)
-                case .bottom:
-                    make.centerX.equalToSuperview()
-                    make.bottom.equalToSuperview().offset(-50)
-                case .custom(let center):
-                    make.center.equalTo(center)
-                }
-
-                if let fixedWidthRatio = self.fixedWidthRatio {
-                    make.width.equalToSuperview().multipliedBy(fixedWidthRatio)
+                if let maskColor = self.maskColor {
+                    hostView.addSubview(self.maskView)
+                    self.maskView.backgroundColor = maskColor
+                    self.maskView.ty.makeConstraints { view, superView in
+                        view.left == superView.left
+                        view.right == superView.right
+                        view.top == superView.top
+                        view.bottom == superView.bottom
+                    }
                 } else {
-                    make.width.lessThanOrEqualToSuperview().multipliedBy(self.maxWidthRatio)
+                    hostView.addSubview(self.slotView)
+                }
+            } else {
+                if let maskColor = self.maskColor {
+                    mainWindow?.addSubview(self.maskView)
+                    self.maskView.backgroundColor = maskColor
+                    self.maskView.ty.makeConstraints { view, superView in
+                        view.left == superView.left
+                        view.right == superView.right
+                        view.top == superView.top
+                        view.bottom == superView.bottom
+                    }
+                } else {
+                    mainWindow?.addSubview(self.slotView)
                 }
             }
-
-            self.hudView?.snp.makeConstraints { make in
-                make.edges.equalTo(self.contentViewInsets)
+            
+            if let fixedWidthRatio = self.fixedWidthRatio {
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.width == superView.width * fixedWidthRatio
+                }
+            } else {
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.width <= superView.width * self.maxWidthRatio
+                }
             }
+            
+            switch self.position {
+            case .mid:
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.centerX == superView.centerX
+                    view.centerY == superView.centerY
+                }
+                
+            case .top:
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.centerX == superView.centerX
+                    view.top == superView.top + 100
+                }
+            case .bottom:
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.centerX == superView.centerX
+                    view.bottom == superView.bottom - 50
+                }
+            case .custom(let center):
+                self.slotView.ty.makeConstraints { view, superView in
+                    view.centerX == superView.centerX + center.x
+                    view.centerY == superView.centerY + center.y
+                }
+            }
+            
+            
+            
+            
+            
+            
+
+//            self.slotView.snp.makeConstraints { make in
+//                switch self.position {
+//                case .mid:
+//                    make.center.equalToSuperview()
+//                case .top:
+//                    make.centerX.equalToSuperview()
+//                    make.top.equalToSuperview().offset(100)
+//                case .bottom:
+//                    make.centerX.equalToSuperview()
+//                    make.bottom.equalToSuperview().offset(-50)
+//                case .custom(let center):
+//                    make.center.equalTo(center)
+//                }
+//
+//                if let fixedWidthRatio = self.fixedWidthRatio {
+//                    make.width.equalToSuperview().multipliedBy(fixedWidthRatio)
+//                } else {
+//                    make.width.lessThanOrEqualToSuperview().multipliedBy(self.maxWidthRatio)
+//                }
+//            }
+            
+            self.hudView?.ty.makeConstraints({ view, superView in
+                view.left == superView.left + self.contentViewInsets.left
+                view.right == superView.right - self.contentViewInsets.right
+                view.top == superView.top + self.contentViewInsets.top
+                view.bottom == superView.bottom - self.contentViewInsets.bottom
+            })
+
+//            self.hudView?.snp.makeConstraints { make in
+//                make.edges.equalTo(self.contentViewInsets)
+//            }
 
             self.hudView?.updateConstraints(by: self)
 
@@ -272,7 +312,11 @@ extension TinyHUD {
                             self.slotView.alpha = 0
                         },
                         completion: { _ in
-                            self.maskView.removeFromSuperview()
+                            if self.maskView.superview != nil {
+                                self.maskView.removeFromSuperview()
+                            } else {
+                                self.slotView.removeFromSuperview()
+                            }
                         }
                     )
                 }
@@ -327,7 +371,7 @@ extension TinyHUD {
         self.slotView.layer.cornerRadius = radius
         return self
     }
-    
+
     func insets(_ insets: UIEdgeInsets) -> TinyHUD {
         contentViewInsets = insets
         return self
@@ -343,5 +387,3 @@ extension TinyHUD {
         return self
     }
 }
-
-

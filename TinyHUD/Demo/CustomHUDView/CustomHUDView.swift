@@ -8,7 +8,7 @@
 // swiftlint:disable type_name
 
 import Foundation
-import SnapKit
+//import SnapKit
 import UIKit
 
 extension TinyHUDKey {
@@ -29,8 +29,12 @@ class TinyHUDView_Text: TinyHUDView {
             view.label.textColor = UIColor.white
             view.label.text = context?.stringValue
             view.addSubview(view.label)
-            view.label.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+            
+            view.label.ty.makeConstraints { view, superView in
+                view.left == superView.left
+                view.right == superView.right
+                view.top == superView.top
+                view.bottom == superView.bottom
             }
 
             return view
@@ -55,8 +59,10 @@ class TinyHUDView_Image_Text: TinyHUDView {
             let width = CGFloat( cgi.width ) / UIScreen.main.scale
             let height = CGFloat( cgi.height ) / UIScreen.main.scale
             imageViewSize = CGSize(width: width, height: height)
-            imageView.snp.makeConstraints { make in
-                make.size.equalTo(CGSize(width: width, height: height))
+            
+            imageView.ty.makeConstraints { view, _ in
+                view.width == width~1000
+                view.height == height~1000
             }
         }
 
@@ -66,23 +72,27 @@ class TinyHUDView_Image_Text: TinyHUDView {
 
         stackView = UIStackView()
         stackView.alignment = .center
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fillEqually
         stackView.axis = axis
         stackView.spacing = 5
 
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(label)
+        
 
         label.textColor = UIColor.white
 
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
         self.addSubview(stackView)
-
-        stackView.snp.makeConstraints { make in
-
-            make.edges.equalToSuperview()
+        
+        stackView.ty.makeConstraints { view, superView in
+            view.left == superView.left
+            view.right == superView.right
+            view.top == superView.top
+            view.bottom == superView.bottom
         }
+        
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(label)
     }
 
     override init(frame: CGRect) {
@@ -109,8 +119,10 @@ class TinyHUDView_Image_Text: TinyHUDView {
             labelSize = label.sizeThatFits(size)
 
             if imageViewSize.height > labelSize.height {
-                imageView.snp.updateConstraints { make in
-                    make.size.equalTo(CGSize(width: labelSize.height / imageViewSize.height * imageViewSize.width, height: labelSize.height))
+                
+                imageView.ty.updateConstraints { view, _ in
+                    view.width == labelSize.height / imageViewSize.height * imageViewSize.width
+                    view.height == labelSize.height
                 }
             }
 
@@ -119,14 +131,17 @@ class TinyHUDView_Image_Text: TinyHUDView {
             labelSize = label.sizeThatFits(size)
 
             if imageViewSize.width > labelSize.width {
-                imageView.snp.updateConstraints { make in
-                    make.size.equalTo(CGSize(width: labelSize.width, height: labelSize.width / imageViewSize.width * imageViewSize.height))
+                
+                imageView.ty.updateConstraints { view, _ in
+                    view.width == labelSize.width
+                    view.height == labelSize.width / imageViewSize.width * imageViewSize.height
                 }
             }
         }
-
-        label.snp.makeConstraints { make in
-            make.size.equalTo(labelSize)
+        
+        label.ty.makeConstraints { view, _ in
+            view.width == labelSize.width
+            view.height == labelSize.height
         }
     }
 
@@ -158,9 +173,12 @@ class TinyHUDView_Text_Tap: TinyHUDView {
             let view = TinyHUDView_Text_Tap()
 
             view.addSubview(view.stackView)
-
-            view.stackView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+            
+            view.stackView.ty.makeConstraints { view, superView in
+                view.left == superView.left
+                view.right == superView.right
+                view.top == superView.top
+                view.bottom == superView.bottom
             }
 
             view.label.numberOfLines = 0
@@ -168,9 +186,11 @@ class TinyHUDView_Text_Tap: TinyHUDView {
             view.label.text = context?.stringValue
             view.stackView.addArrangedSubview(view.label)
 
-            view.arrowImageView.snp.makeConstraints { make in
-                make.size.equalTo(CGSize(width: 20, height: 20))
+            view.arrowImageView.ty.makeConstraints { view, _ in
+                view.width == 20
+                view.height == 20
             }
+            
             view.stackView.addArrangedSubview(view.arrowImageView)
 
             let tap = UITapGestureRecognizer(target: view, action: #selector(customTap))

@@ -3,19 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C71350395FFF0817C4D514F /* Pods_TinyHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD44A40FA7BFD1C5F6F2C3F8 /* Pods_TinyHUD.framework */; };
-		0CACC866D227B07911AC5BBC /* Pods_TinyHUD_TinyHUDUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1E4A655E44FCAB92B84A42 /* Pods_TinyHUD_TinyHUDUITests.framework */; };
 		14B9235C26CB425F00EDC402 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9235B26CB425F00EDC402 /* AppDelegate.swift */; };
 		14B9235E26CB425F00EDC402 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9235D26CB425F00EDC402 /* SceneDelegate.swift */; };
 		14B9236526CB426200EDC402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B9236426CB426200EDC402 /* Assets.xcassets */; };
 		14B9236826CB426200EDC402 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B9236626CB426200EDC402 /* LaunchScreen.storyboard */; };
 		14B9237326CB426200EDC402 /* TinyHUDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9237226CB426200EDC402 /* TinyHUDTests.swift */; };
 		14B9237E26CB426200EDC402 /* TinyHUDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9237D26CB426200EDC402 /* TinyHUDUITests.swift */; };
-		14B9238F26CB429800EDC402 /* TinyHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9238E26CB429800EDC402 /* TinyHUD.swift */; };
 		14B9239126CB42CF00EDC402 /* CustomHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239026CB42CF00EDC402 /* CustomHUDView.swift */; };
 		14B9239326CB454700EDC402 /* TinyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B9239226CB454700EDC402 /* TinyJSON.swift */; };
 		14B9239726CB624D00EDC402 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B9239526CB624C00EDC402 /* Main.storyboard */; };
@@ -23,7 +20,8 @@
 		14B9239C26CB826400EDC402 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B9239B26CB826400EDC402 /* check.png */; };
 		14B9239E26CB869C00EDC402 /* information.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B9239D26CB869C00EDC402 /* information.png */; };
 		14B923A026CB871700EDC402 /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B9239F26CB871700EDC402 /* wrong.png */; };
-		4562E7EB667D67CA34D1C76F /* Pods_TinyHUDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5267741DA61C8898F7538518 /* Pods_TinyHUDTests.framework */; };
+		14E1207229DFA98E008D2062 /* TinyLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1207129DFA98E008D2062 /* TinyLayout.swift */; };
+		14E1207429DFA9EE008D2062 /* TinyHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1207329DFA9EE008D2062 /* TinyHUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +55,6 @@
 		14B9237926CB426200EDC402 /* TinyHUDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyHUDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B9237D26CB426200EDC402 /* TinyHUDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinyHUDUITests.swift; sourceTree = "<group>"; };
 		14B9237F26CB426200EDC402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14B9238E26CB429800EDC402 /* TinyHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyHUD.swift; sourceTree = "<group>"; };
 		14B9239026CB42CF00EDC402 /* CustomHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHUDView.swift; sourceTree = "<group>"; };
 		14B9239226CB454700EDC402 /* TinyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyJSON.swift; sourceTree = "<group>"; };
 		14B9239526CB624C00EDC402 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -65,15 +62,9 @@
 		14B9239B26CB826400EDC402 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		14B9239D26CB869C00EDC402 /* information.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = information.png; sourceTree = "<group>"; };
 		14B9239F26CB871700EDC402 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
-		365E257F41754979A0EC8203 /* Pods-TinyHUDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUDTests.debug.xcconfig"; path = "Target Support Files/Pods-TinyHUDTests/Pods-TinyHUDTests.debug.xcconfig"; sourceTree = "<group>"; };
-		368C52BB56F9D5A1D7397793 /* Pods-TinyHUD-TinyHUDUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUD-TinyHUDUITests.release.xcconfig"; path = "Target Support Files/Pods-TinyHUD-TinyHUDUITests/Pods-TinyHUD-TinyHUDUITests.release.xcconfig"; sourceTree = "<group>"; };
-		3EC1880768A5D270693ACB1A /* Pods-TinyHUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUD.release.xcconfig"; path = "Target Support Files/Pods-TinyHUD/Pods-TinyHUD.release.xcconfig"; sourceTree = "<group>"; };
-		5267741DA61C8898F7538518 /* Pods_TinyHUDTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinyHUDTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F1E4A655E44FCAB92B84A42 /* Pods_TinyHUD_TinyHUDUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinyHUD_TinyHUDUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9BE6C68354D3EA94C50D8AB /* Pods-TinyHUD-TinyHUDUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUD-TinyHUDUITests.debug.xcconfig"; path = "Target Support Files/Pods-TinyHUD-TinyHUDUITests/Pods-TinyHUD-TinyHUDUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		AC43FAA7957886F88C9EAC93 /* Pods-TinyHUDTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUDTests.release.xcconfig"; path = "Target Support Files/Pods-TinyHUDTests/Pods-TinyHUDTests.release.xcconfig"; sourceTree = "<group>"; };
-		AD8E75A8C30AA6260DE358B6 /* Pods-TinyHUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinyHUD.debug.xcconfig"; path = "Target Support Files/Pods-TinyHUD/Pods-TinyHUD.debug.xcconfig"; sourceTree = "<group>"; };
-		CD44A40FA7BFD1C5F6F2C3F8 /* Pods_TinyHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinyHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14E1207129DFA98E008D2062 /* TinyLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyLayout.swift; sourceTree = "<group>"; };
+		14E1207329DFA9EE008D2062 /* TinyHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyHUD.swift; sourceTree = "<group>"; };
+		A2262299884B84E09262BEDB /* libPods-TinyHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TinyHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C71350395FFF0817C4D514F /* Pods_TinyHUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4562E7EB667D67CA34D1C76F /* Pods_TinyHUDTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CACC866D227B07911AC5BBC /* Pods_TinyHUD_TinyHUDUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +108,6 @@
 				14B9237126CB426200EDC402 /* TinyHUDTests */,
 				14B9237C26CB426200EDC402 /* TinyHUDUITests */,
 				14B9235926CB425F00EDC402 /* Products */,
-				150266B3702B98F96E3F0503 /* Pods */,
 				F9EC65D988A2F02BA87D4E19 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -138,6 +125,7 @@
 		14B9235A26CB425F00EDC402 /* TinyHUD */ = {
 			isa = PBXGroup;
 			children = (
+				14E1207129DFA98E008D2062 /* TinyLayout.swift */,
 				14B9238B26CB426D00EDC402 /* TinyHUD */,
 				1489BFA72774BEE0000DD97A /* Demo */,
 				14B9235B26CB425F00EDC402 /* AppDelegate.swift */,
@@ -173,7 +161,7 @@
 			children = (
 				14B9239426CB454F00EDC402 /* Utility */,
 				1489BFA62774BEC0000DD97A /* TinyHUD.yuml */,
-				14B9238E26CB429800EDC402 /* TinyHUD.swift */,
+				14E1207329DFA9EE008D2062 /* TinyHUD.swift */,
 			);
 			path = TinyHUD;
 			sourceTree = "<group>";
@@ -197,25 +185,10 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		150266B3702B98F96E3F0503 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AD8E75A8C30AA6260DE358B6 /* Pods-TinyHUD.debug.xcconfig */,
-				3EC1880768A5D270693ACB1A /* Pods-TinyHUD.release.xcconfig */,
-				A9BE6C68354D3EA94C50D8AB /* Pods-TinyHUD-TinyHUDUITests.debug.xcconfig */,
-				368C52BB56F9D5A1D7397793 /* Pods-TinyHUD-TinyHUDUITests.release.xcconfig */,
-				365E257F41754979A0EC8203 /* Pods-TinyHUDTests.debug.xcconfig */,
-				AC43FAA7957886F88C9EAC93 /* Pods-TinyHUDTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		F9EC65D988A2F02BA87D4E19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CD44A40FA7BFD1C5F6F2C3F8 /* Pods_TinyHUD.framework */,
-				9F1E4A655E44FCAB92B84A42 /* Pods_TinyHUD_TinyHUDUITests.framework */,
-				5267741DA61C8898F7538518 /* Pods_TinyHUDTests.framework */,
+				A2262299884B84E09262BEDB /* libPods-TinyHUD.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -227,11 +200,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14B9238226CB426200EDC402 /* Build configuration list for PBXNativeTarget "TinyHUD" */;
 			buildPhases = (
-				438827124E988324D57DFD3D /* [CP] Check Pods Manifest.lock */,
 				14B9235426CB425F00EDC402 /* Sources */,
 				14B9235526CB425F00EDC402 /* Frameworks */,
 				14B9235626CB425F00EDC402 /* Resources */,
-				849AFD32B3E49B86221BA721 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -246,7 +217,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14B9238526CB426200EDC402 /* Build configuration list for PBXNativeTarget "TinyHUDTests" */;
 			buildPhases = (
-				D3C9C8A4B7681EBD3AA29773 /* [CP] Check Pods Manifest.lock */,
 				14B9236A26CB426200EDC402 /* Sources */,
 				14B9236B26CB426200EDC402 /* Frameworks */,
 				14B9236C26CB426200EDC402 /* Resources */,
@@ -265,11 +235,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14B9238826CB426200EDC402 /* Build configuration list for PBXNativeTarget "TinyHUDUITests" */;
 			buildPhases = (
-				20F8E2EADE23685D45701264 /* [CP] Check Pods Manifest.lock */,
 				14B9237526CB426200EDC402 /* Sources */,
 				14B9237626CB426200EDC402 /* Frameworks */,
 				14B9237726CB426200EDC402 /* Resources */,
-				914BA2A554681FA4E008AA32 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -353,119 +321,17 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		20F8E2EADE23685D45701264 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TinyHUD-TinyHUDUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		438827124E988324D57DFD3D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TinyHUD-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		849AFD32B3E49B86221BA721 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TinyHUD/Pods-TinyHUD-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TinyHUD/Pods-TinyHUD-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinyHUD/Pods-TinyHUD-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		914BA2A554681FA4E008AA32 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TinyHUD-TinyHUDUITests/Pods-TinyHUD-TinyHUDUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TinyHUD-TinyHUDUITests/Pods-TinyHUD-TinyHUDUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TinyHUD-TinyHUDUITests/Pods-TinyHUD-TinyHUDUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3C9C8A4B7681EBD3AA29773 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TinyHUDTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		14B9235426CB425F00EDC402 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E1207229DFA98E008D2062 /* TinyLayout.swift in Sources */,
 				14B9239826CB624D00EDC402 /* TinyHUDDemo.swift in Sources */,
-				14B9238F26CB429800EDC402 /* TinyHUD.swift in Sources */,
 				14B9239126CB42CF00EDC402 /* CustomHUDView.swift in Sources */,
 				14B9239326CB454700EDC402 /* TinyJSON.swift in Sources */,
 				14B9235C26CB425F00EDC402 /* AppDelegate.swift in Sources */,
+				14E1207429DFA9EE008D2062 /* TinyHUD.swift in Sources */,
 				14B9235E26CB425F00EDC402 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,7 +497,6 @@
 		};
 		14B9238326CB426200EDC402 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD8E75A8C30AA6260DE358B6 /* Pods-TinyHUD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -651,7 +516,6 @@
 		};
 		14B9238426CB426200EDC402 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EC1880768A5D270693ACB1A /* Pods-TinyHUD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -671,7 +535,6 @@
 		};
 		14B9238626CB426200EDC402 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 365E257F41754979A0EC8203 /* Pods-TinyHUDTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -694,7 +557,6 @@
 		};
 		14B9238726CB426200EDC402 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC43FAA7957886F88C9EAC93 /* Pods-TinyHUDTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -717,7 +579,6 @@
 		};
 		14B9238926CB426200EDC402 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9BE6C68354D3EA94C50D8AB /* Pods-TinyHUD-TinyHUDUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -738,7 +599,6 @@
 		};
 		14B9238A26CB426200EDC402 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 368C52BB56F9D5A1D7397793 /* Pods-TinyHUD-TinyHUDUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

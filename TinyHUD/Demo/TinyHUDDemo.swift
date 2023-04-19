@@ -132,7 +132,7 @@ extension TinyHUDDemo {
             TinyHUD(.failure, "1234567890123456789012345678901234567890").maxWidthRatio(0.5).show()
         case (5, 2):
             TinyHUD(.info, "1234567890123456789012345678901234567890")
-                .maxWidthRatio(0.5)
+                .maxWidthRatio(0.8)
                 .show()
         case (5, 3):
             TinyHUD(.demoTap, "with tap gesture")
